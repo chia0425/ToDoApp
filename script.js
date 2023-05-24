@@ -14,14 +14,28 @@ function AddTask(){
         li.appendChild(span);
     }
     inputBox.value = "";
+    saveData();
 }
 
 listContainer.addEventListener("click", function(e){
     if (e.target.tagName === "LI"){
         e.target.classList.toggle("checked");
+        saveData();
     }
     else if(e.target.tagName === "SPAN"){
         e.target.parentElement.remove();
+        saveData();
     }
 
 },false);
+
+
+function saveData(){ //anytime an element is added to list container must call this function
+    localStorage.setItem("data" , listContainer.innerHTML); //listcontainer  displayed contents stored in browser as data in local storage
+}
+
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data");
+}
+
+showTask();
